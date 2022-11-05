@@ -1,0 +1,26 @@
+/*
+ * software_timer.c
+ *
+ *  Created on: Nov 3, 2022
+ *      Author: ADMIN
+ */
+
+#include "software_timer.h"
+#define TICK 10
+
+int timer_flag = 0;
+int timer_cnt = 0;
+
+void setTimer(int duration){
+	timer_cnt = duration/TICK;
+	timer_flag = 0;
+}
+
+void timerRun(){
+	if(timer_cnt>0){
+		timer_cnt--;
+		if(timer_cnt<=0){
+			timer_flag = 1;
+		}
+	}
+}

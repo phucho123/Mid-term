@@ -1,0 +1,79 @@
+/*
+ * fsm_automatic.c
+ *
+ *  Created on: Nov 3, 2022
+ *      Author: ADMIN
+ */
+#include "main.h"
+#include "fsm_automatic.h"
+#include "display_7segment.h"
+
+
+int num = 9;
+
+void fsm_automatic_run(){
+	switch(status){
+		case INIT:
+			setTimer1(1000);
+			status = MODE0;
+			break;
+		case MODE0:
+			if(timer_flag1 == 1){
+				setTimer1(1000);
+				if(num > 0) num--;
+//				HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
+			}
+			display_7segment(num);
+			if(button_flag[2] == 1){
+				button_flag[2] = 0;
+				HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
+//				status = MODE1;
+//				GPIOA->ODR = 0xffff;
+//				setTimer2(5000);
+			}
+			break;
+		case MODE1:
+			if(timer_flag2){
+				status = INIT;
+			}
+//			if(button_flag[0]){
+//				button_flag[0] = 0;
+//				status = MODE2;
+//			}
+//			if(button_flag[1]){
+//				button_flag[1] = 0;
+//				h = (h+12+1)%12;
+//				setTimer2(5000);
+//			}
+//			if(button_flag[2]){
+//				button_flag[2] = 0;
+//				h = (h+12-1)%12;
+//				setTimer2(5000);
+//			}
+//			display(h,h,h);
+			break;
+		case MODE2:
+			if(timer_flag2){
+				status = INIT;
+			}
+//			if(button_flag[0]){
+//				button_flag[0] = 0;
+//				status = INIT;
+//				setTimer2(5000);
+//			}
+//			if(button_flag[1]){
+//				button_flag[1] = 0;
+//				m = (m+12+1)%12;
+//				setTimer2(5000);
+//			}
+//			if(button_flag[2]){
+//				button_flag[2] = 0;
+//				m = (m+12-1)%12;
+//				setTimer2(5000);
+//			}
+//			display(m,m,m);
+			break;
+		default:
+			break;
+	}
+}

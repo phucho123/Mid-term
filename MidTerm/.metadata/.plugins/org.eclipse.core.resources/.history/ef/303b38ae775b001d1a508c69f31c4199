@@ -1,0 +1,25 @@
+/*
+ * fsm_automatic.c
+ *
+ *  Created on: Nov 3, 2022
+ *      Author: ADMIN
+ */
+
+#include "fsm_automatic.h"
+#include "software_timer.h"
+
+int h = 0,m = 0,s = 0;
+
+void fsm_automatic_run(){
+	switch(status){
+		case MODE0:
+			if()
+			break;
+		case MODE1:
+			break;
+		case MODE2:
+			break;
+		default:
+			break;
+	}
+}

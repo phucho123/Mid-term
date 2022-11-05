@@ -1,0 +1,68 @@
+/*
+ * fsm_automatic.c
+ *
+ *  Created on: Nov 3, 2022
+ *      Author: ADMIN
+ */
+
+#include "fsm_automatic.h"
+
+
+int h = 0,m = 0,s = 0;
+
+void fsm_automatic_run(){
+	switch(status){
+		case MODE0:
+			if(timer_flag){
+				setTimer(1000);
+				s++;
+				if(s == 12){
+					m++;
+					s = 0;
+				}
+				if(m == 12){
+					m = 0;
+					h++;
+				}
+				if(h == 12){
+					h = 0;
+				}
+			}
+			if(button_flag[0]){
+				button_flag[0] = 0;
+				status = MODE1;
+				GPIOA->ODR = 0xffff;
+			}
+			break;
+		case MODE1:
+			if(button_flag[0]){
+				button_flag[0] = 0;
+				status = MODE2;
+			}
+			if(button_flag[1]){
+				button_flag[1] = 0;
+				h = (h+12+1)%12;
+			}
+			if(button_flag[2]){
+				button_flag[2] = 0;
+				h = (h+12-1)%12;
+			}
+			break;
+		case MODE2:
+			if(button_flag[0]){
+				button_flag[0] = 0;
+				status = MODE0;
+			}
+			if(button_flag[1]){
+				button_flag[1] = 0;
+				m = (m+12+1)%12;
+			}
+			if(button_flag[2]){
+				button_flag[2] = 0;
+				m = (m+12-1)%12;
+			}
+			break;
+		default:
+			break;
+	}
+}

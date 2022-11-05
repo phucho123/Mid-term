@@ -11,7 +11,9 @@
 #include "global.h"
 #include "software_timer.h"
 #include "button.h"
+#include "display_7segment.h"
 
 void fsm_automatic_run();
+void fsm_button_pressed();
 
 #endif /* INC_FSM_AUTOMATIC_H_ */

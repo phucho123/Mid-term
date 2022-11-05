@@ -98,11 +98,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
   status = INIT;
+
   while (1)
   {
 	  fsm_automatic_run();
+	  fsm_button_pressed();
 //	  if(timer_flag2){
 //		  setTimer2(500);
 //		  en = 1-en;

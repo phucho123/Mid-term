@@ -14,7 +14,8 @@
 #define PRESSED_STATE	RESET
 
 extern int button_flag[3];
-void getKeyInput();
 
+void getKeyInput();
+int ispressed();
 
 #endif /* INC_BUTTON_H_ */

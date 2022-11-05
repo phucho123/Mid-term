@@ -42,7 +42,7 @@ void getKeyInput(){
 					button_flag[i] = 1;
 				}
 				else{
-					is_pressed[i] = 0; //release button
+					is_pressed[i] = 0;
 					button_flag[i] = 0;
 				}
 			}
@@ -52,7 +52,7 @@ void getKeyInput(){
 				}
 				if(KeyReg3[i] == PRESSED_STATE && Timeout[i] == 0){
 					KeyReg3[i] = NORMAL_STATE;
-					is_pressed[i] = 1; // over 3s button is pressed
+					is_pressed[i] = 1;
 				}
 			}
 		}

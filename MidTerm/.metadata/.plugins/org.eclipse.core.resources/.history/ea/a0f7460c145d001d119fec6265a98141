@@ -66,28 +66,28 @@ void fsm_automatic_run(){
 
 void fsm_button_pressed(){
 	switch(status){
-		case PRESSED_INC: //pressed inc button state
-			if(ispressed(1) == 0){ //if not press button INC
-				button_flag[1] = 0; //set button INC flag to 0
-				status = SETTIME; //set status to SETTIME state
-				setTimer3(10000); //set timer3 to 10s again because we just release button
+		case PRESSED_INC:
+			if(ispressed(1) == 0){
+				button_flag[1] = 0;
+				status = SETTIME;
+				setTimer3(10000);
 			}
-			if(timer_flag2){ //if have timer2 flag
-				setTimer2(1000); //set timer to 1s
-				num = (num+1)%10; //num increase every 1s
-				display_7segment(num); //display in led7
+			if(timer_flag2){
+				setTimer2(1000);
+				num = (num+1)%10;
+				display_7segment(num);
 			}
 			break;
-		case PRESSED_DEC: //pressed dec button state
-			if(ispressed(2) == 0){ //if not press button DEC
-				button_flag[2] = 0; //set button DEC flag to 0
-				status = SETTIME; //set status to SETTIME state
-				setTimer3(10000); //set timer3 to 10s again because we just release button
+		case PRESSED_DEC:
+			if(ispressed(2) == 0){
+				button_flag[2] = 0;
+				status = SETTIME;
+				setTimer3(10000);
 			}
-			if(timer_flag2){ //if have timer2 flag
-				setTimer2(1000); //set timer to 1s
-				num = (num-1+10)%10; //num decrease every 1s
-				display_7segment(num); //display in led7
+			if(timer_flag2){
+				setTimer2(1000);
+				num = (num-1+10)%10;
+				display_7segment(num);
 			}
 			break;
 		default:

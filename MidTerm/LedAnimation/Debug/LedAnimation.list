@@ -217,7 +217,7 @@ void getKeyInput(){
  8000254:	e02f      	b.n	80002b6 <getKeyInput+0x14a>
 				}
 				else{
-					is_pressed[i] = 0;
+					is_pressed[i] = 0; //release button
  8000256:	4a25      	ldr	r2, [pc, #148]	; (80002ec <getKeyInput+0x180>)
  8000258:	687b      	ldr	r3, [r7, #4]
  800025a:	2100      	movs	r1, #0
@@ -262,7 +262,7 @@ void getKeyInput(){
  80002a4:	687b      	ldr	r3, [r7, #4]
  80002a6:	2101      	movs	r1, #1
  80002a8:	f842 1023 	str.w	r1, [r2, r3, lsl #2]
-					is_pressed[i] = 1;
+					is_pressed[i] = 1; // over 3s button is pressed
  80002ac:	4a0f      	ldr	r2, [pc, #60]	; (80002ec <getKeyInput+0x180>)
  80002ae:	687b      	ldr	r3, [r7, #4]
  80002b0:	2101      	movs	r1, #1
@@ -346,22 +346,22 @@ void fsm_automatic_run(){
  800032c:	d002      	beq.n	8000334 <fsm_automatic_run+0x1c>
  800032e:	2b01      	cmp	r3, #1
  8000330:	d00d      	beq.n	800034e <fsm_automatic_run+0x36>
-				setTimer2(1000);
-				status = PRESSED_DEC;
+				setTimer2(1000); //set timer2 to 1s for decrease num every 1s in pressed state
+				status = PRESSED_DEC; //set status to pressed dec state
 			}
 			break;
 		default:
 			break;
  8000332:	e0ac      	b.n	800048e <fsm_automatic_run+0x176>
-			setTimer2(1000);
+			setTimer2(1000); //set timer2 1s for counting down every 1s
  8000334:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000338:	f000 fa76 	bl	8000828 <setTimer2>
-			display_7segment(num);
+			display_7segment(num); //display num in led 7
  800033c:	4b58      	ldr	r3, [pc, #352]	; (80004a0 <fsm_automatic_run+0x188>)
  800033e:	681b      	ldr	r3, [r3, #0]
  8000340:	4618      	mov	r0, r3
  8000342:	f7ff ffd5 	bl	80002f0 <display_7segment>
-			status = COUNTDOWN;
+			status = COUNTDOWN; //set status to COUNTDOWN STATE
  8000346:	4b55      	ldr	r3, [pc, #340]	; (800049c <fsm_automatic_run+0x184>)
  8000348:	2201      	movs	r2, #1
  800034a:	601a      	str	r2, [r3, #0]
@@ -372,10 +372,10 @@ void fsm_automatic_run(){
  8000350:	681b      	ldr	r3, [r3, #0]
  8000352:	2b01      	cmp	r3, #1
  8000354:	d111      	bne.n	800037a <fsm_automatic_run+0x62>
-				setTimer2(1000);
+				setTimer2(1000); //set timer2 to 1s again
  8000356:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  800035a:	f000 fa65 	bl	8000828 <setTimer2>
-				if(num > 0) num--;
+				if(num > 0) num--; // value of led 7 counting down every 1s
  800035e:	4b50      	ldr	r3, [pc, #320]	; (80004a0 <fsm_automatic_run+0x188>)
  8000360:	681b      	ldr	r3, [r3, #0]
  8000362:	2b00      	cmp	r3, #0
@@ -385,12 +385,12 @@ void fsm_automatic_run(){
  800036a:	3b01      	subs	r3, #1
  800036c:	4a4c      	ldr	r2, [pc, #304]	; (80004a0 <fsm_automatic_run+0x188>)
  800036e:	6013      	str	r3, [r2, #0]
-				display_7segment(num);
+				display_7segment(num); //display num in led 7
  8000370:	4b4b      	ldr	r3, [pc, #300]	; (80004a0 <fsm_automatic_run+0x188>)
  8000372:	681b      	ldr	r3, [r3, #0]
  8000374:	4618      	mov	r0, r3
  8000376:	f7ff ffbb 	bl	80002f0 <display_7segment>
-			if(button_flag[0] == 1 || button_flag[1] == 1 || button_flag[2] == 1){
+			if((button_flag[0] == 1) || (button_flag[1] == 1) || (button_flag[2] == 1)){
  800037a:	4b4b      	ldr	r3, [pc, #300]	; (80004a8 <fsm_automatic_run+0x190>)
  800037c:	681b      	ldr	r3, [r3, #0]
  800037e:	2b01      	cmp	r3, #1
@@ -403,11 +403,11 @@ void fsm_automatic_run(){
  800038c:	689b      	ldr	r3, [r3, #8]
  800038e:	2b01      	cmp	r3, #1
  8000390:	d17f      	bne.n	8000492 <fsm_automatic_run+0x17a>
-				status = SETTIME;
+				status = SETTIME; //set status to SETTIME STATE if have button down
  8000392:	4b42      	ldr	r3, [pc, #264]	; (800049c <fsm_automatic_run+0x184>)
  8000394:	2202      	movs	r2, #2
  8000396:	601a      	str	r2, [r3, #0]
-				setTimer3(10000);
+				setTimer3(10000); //set timer3 to 10s for if not have button down in SETTIME STATE then status return to COUNTDOWN STATE
  8000398:	f242 7010 	movw	r0, #10000	; 0x2710
  800039c:	f000 fa60 	bl	8000860 <setTimer3>
 			break;
@@ -417,41 +417,41 @@ void fsm_automatic_run(){
  80003a4:	681b      	ldr	r3, [r3, #0]
  80003a6:	2b01      	cmp	r3, #1
  80003a8:	d102      	bne.n	80003b0 <fsm_automatic_run+0x98>
-				status = INIT;
+				status = INIT; //if after 10s not have button down or pressed then return to INIT and go to COUNTDOWN
  80003aa:	4b3c      	ldr	r3, [pc, #240]	; (800049c <fsm_automatic_run+0x184>)
  80003ac:	2200      	movs	r2, #0
  80003ae:	601a      	str	r2, [r3, #0]
-			if(button_flag[0] == 1){
+			if(button_flag[0] == 1){ //button RESET down
  80003b0:	4b3d      	ldr	r3, [pc, #244]	; (80004a8 <fsm_automatic_run+0x190>)
  80003b2:	681b      	ldr	r3, [r3, #0]
  80003b4:	2b01      	cmp	r3, #1
  80003b6:	d10e      	bne.n	80003d6 <fsm_automatic_run+0xbe>
-				button_flag[0] = 0;
+				button_flag[0] = 0; //set button flag to 0
  80003b8:	4b3b      	ldr	r3, [pc, #236]	; (80004a8 <fsm_automatic_run+0x190>)
  80003ba:	2200      	movs	r2, #0
  80003bc:	601a      	str	r2, [r3, #0]
-				num = 0;
+				num = 0; // set value of led 7 to 0
  80003be:	4b38      	ldr	r3, [pc, #224]	; (80004a0 <fsm_automatic_run+0x188>)
  80003c0:	2200      	movs	r2, #0
  80003c2:	601a      	str	r2, [r3, #0]
-				display_7segment(num);
+				display_7segment(num); //display num in led 7
  80003c4:	4b36      	ldr	r3, [pc, #216]	; (80004a0 <fsm_automatic_run+0x188>)
  80003c6:	681b      	ldr	r3, [r3, #0]
  80003c8:	4618      	mov	r0, r3
  80003ca:	f7ff ff91 	bl	80002f0 <display_7segment>
-				setTimer3(10000);
+				setTimer3(10000); //set timer3 to 10s again because just have button RESET down
  80003ce:	f242 7010 	movw	r0, #10000	; 0x2710
  80003d2:	f000 fa45 	bl	8000860 <setTimer3>
-			if(button_flag[1] == 1){
+			if(button_flag[1] == 1){ //button INC down
  80003d6:	4b34      	ldr	r3, [pc, #208]	; (80004a8 <fsm_automatic_run+0x190>)
  80003d8:	685b      	ldr	r3, [r3, #4]
  80003da:	2b01      	cmp	r3, #1
  80003dc:	d11b      	bne.n	8000416 <fsm_automatic_run+0xfe>
-				button_flag[1] = 0;
+				button_flag[1] = 0; //set button INC flag to 0
  80003de:	4b32      	ldr	r3, [pc, #200]	; (80004a8 <fsm_automatic_run+0x190>)
  80003e0:	2200      	movs	r2, #0
  80003e2:	605a      	str	r2, [r3, #4]
-				num = (num+1)%10;
+				num = (num+1)%10; //increase value of num
  80003e4:	4b2e      	ldr	r3, [pc, #184]	; (80004a0 <fsm_automatic_run+0x188>)
  80003e6:	681b      	ldr	r3, [r3, #0]
  80003e8:	1c59      	adds	r1, r3, #1
@@ -467,24 +467,24 @@ void fsm_automatic_run(){
  80003fe:	1aca      	subs	r2, r1, r3
  8000400:	4b27      	ldr	r3, [pc, #156]	; (80004a0 <fsm_automatic_run+0x188>)
  8000402:	601a      	str	r2, [r3, #0]
-				display_7segment(num);
+				display_7segment(num); //display num in led 7
  8000404:	4b26      	ldr	r3, [pc, #152]	; (80004a0 <fsm_automatic_run+0x188>)
  8000406:	681b      	ldr	r3, [r3, #0]
  8000408:	4618      	mov	r0, r3
  800040a:	f7ff ff71 	bl	80002f0 <display_7segment>
-				setTimer3(10000);
+				setTimer3(10000); //set timer3 to 10s again because just have button INC down
  800040e:	f242 7010 	movw	r0, #10000	; 0x2710
  8000412:	f000 fa25 	bl	8000860 <setTimer3>
-			if(button_flag[2] == 1){
+			if(button_flag[2] == 1){ //button DEC down
  8000416:	4b24      	ldr	r3, [pc, #144]	; (80004a8 <fsm_automatic_run+0x190>)
  8000418:	689b      	ldr	r3, [r3, #8]
  800041a:	2b01      	cmp	r3, #1
  800041c:	d11c      	bne.n	8000458 <fsm_automatic_run+0x140>
-				button_flag[2] = 0;
+				button_flag[2] = 0; //set button DEC flag to 0
  800041e:	4b22      	ldr	r3, [pc, #136]	; (80004a8 <fsm_automatic_run+0x190>)
  8000420:	2200      	movs	r2, #0
  8000422:	609a      	str	r2, [r3, #8]
-				num = (num-1+10)%10;
+				num = (num-1+10)%10; // decrease value of num
  8000424:	4b1e      	ldr	r3, [pc, #120]	; (80004a0 <fsm_automatic_run+0x188>)
  8000426:	681b      	ldr	r3, [r3, #0]
  8000428:	f103 0109 	add.w	r1, r3, #9
@@ -500,37 +500,37 @@ void fsm_automatic_run(){
  8000440:	1aca      	subs	r2, r1, r3
  8000442:	4b17      	ldr	r3, [pc, #92]	; (80004a0 <fsm_automatic_run+0x188>)
  8000444:	601a      	str	r2, [r3, #0]
-				display_7segment(num);
+				display_7segment(num); //display num in led 7
  8000446:	4b16      	ldr	r3, [pc, #88]	; (80004a0 <fsm_automatic_run+0x188>)
  8000448:	681b      	ldr	r3, [r3, #0]
  800044a:	4618      	mov	r0, r3
  800044c:	f7ff ff50 	bl	80002f0 <display_7segment>
-				setTimer3(10000);
+				setTimer3(10000); //set timer3 to 10s again because just have button DEC down
  8000450:	f242 7010 	movw	r0, #10000	; 0x2710
  8000454:	f000 fa04 	bl	8000860 <setTimer3>
-			if(ispressed(1)){
+			if(ispressed(1)){ //if button INC is pressed over 3s
  8000458:	2001      	movs	r0, #1
  800045a:	f7ff fe77 	bl	800014c <ispressed>
  800045e:	4603      	mov	r3, r0
  8000460:	2b00      	cmp	r3, #0
  8000462:	d006      	beq.n	8000472 <fsm_automatic_run+0x15a>
-				setTimer2(1000);
+				setTimer2(1000); //set timer2 to 1s for increase num every 1s in pressed state
  8000464:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000468:	f000 f9de 	bl	8000828 <setTimer2>
-				status = PRESSED_INC;
+				status = PRESSED_INC; //set status to pressed inc state
  800046c:	4b0b      	ldr	r3, [pc, #44]	; (800049c <fsm_automatic_run+0x184>)
  800046e:	2203      	movs	r2, #3
  8000470:	601a      	str	r2, [r3, #0]
-			if(ispressed(2)){
+			if(ispressed(2)){ //if button DEC is pressed over 3s
  8000472:	2002      	movs	r0, #2
  8000474:	f7ff fe6a 	bl	800014c <ispressed>
  8000478:	4603      	mov	r3, r0
  800047a:	2b00      	cmp	r3, #0
  800047c:	d00b      	beq.n	8000496 <fsm_automatic_run+0x17e>
-				setTimer2(1000);
+				setTimer2(1000); //set timer2 to 1s for decrease num every 1s in pressed state
  800047e:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000482:	f000 f9d1 	bl	8000828 <setTimer2>
-				status = PRESSED_DEC;
+				status = PRESSED_DEC; //set status to pressed dec state
  8000486:	4b05      	ldr	r3, [pc, #20]	; (800049c <fsm_automatic_run+0x184>)
  8000488:	2204      	movs	r2, #4
  800048a:	601a      	str	r2, [r3, #0]
@@ -567,39 +567,39 @@ void fsm_button_pressed(){
  80004be:	d002      	beq.n	80004c6 <fsm_button_pressed+0x12>
  80004c0:	2b04      	cmp	r3, #4
  80004c2:	d02e      	beq.n	8000522 <fsm_button_pressed+0x6e>
-				num = (num-1+10)%10;
-				display_7segment(num);
+				num = (num-1+10)%10; //num decrease every 1s
+				display_7segment(num); //display in led7
 			}
 			break;
 		default:
 			break;
  80004c4:	e05f      	b.n	8000586 <fsm_button_pressed+0xd2>
-			if(ispressed(1) == 0){
+			if(ispressed(1) == 0){ //if not press button INC
  80004c6:	2001      	movs	r0, #1
  80004c8:	f7ff fe40 	bl	800014c <ispressed>
  80004cc:	4603      	mov	r3, r0
  80004ce:	2b00      	cmp	r3, #0
  80004d0:	d109      	bne.n	80004e6 <fsm_button_pressed+0x32>
-				button_flag[1] = 0;
+				button_flag[1] = 0; //set button INC flag to 0
  80004d2:	4b2f      	ldr	r3, [pc, #188]	; (8000590 <fsm_button_pressed+0xdc>)
  80004d4:	2200      	movs	r2, #0
  80004d6:	605a      	str	r2, [r3, #4]
-				status = SETTIME;
+				status = SETTIME; //set status to SETTIME state
  80004d8:	4b2c      	ldr	r3, [pc, #176]	; (800058c <fsm_button_pressed+0xd8>)
  80004da:	2202      	movs	r2, #2
  80004dc:	601a      	str	r2, [r3, #0]
-				setTimer3(10000);
+				setTimer3(10000); //set timer3 to 10s again because we just release button
  80004de:	f242 7010 	movw	r0, #10000	; 0x2710
  80004e2:	f000 f9bd 	bl	8000860 <setTimer3>
-			if(timer_flag2){
+			if(timer_flag2){ //if have timer2 flag
  80004e6:	4b2b      	ldr	r3, [pc, #172]	; (8000594 <fsm_button_pressed+0xe0>)
  80004e8:	681b      	ldr	r3, [r3, #0]
  80004ea:	2b00      	cmp	r3, #0
  80004ec:	d048      	beq.n	8000580 <fsm_button_pressed+0xcc>
-				setTimer2(1000);
+				setTimer2(1000); //set timer to 1s
  80004ee:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  80004f2:	f000 f999 	bl	8000828 <setTimer2>
-				num = (num+1)%10;
+				num = (num+1)%10; //num increase every 1s
  80004f6:	4b28      	ldr	r3, [pc, #160]	; (8000598 <fsm_button_pressed+0xe4>)
  80004f8:	681b      	ldr	r3, [r3, #0]
  80004fa:	1c59      	adds	r1, r3, #1
@@ -615,39 +615,39 @@ void fsm_button_pressed(){
  8000510:	1aca      	subs	r2, r1, r3
  8000512:	4b21      	ldr	r3, [pc, #132]	; (8000598 <fsm_button_pressed+0xe4>)
  8000514:	601a      	str	r2, [r3, #0]
-				display_7segment(num);
+				display_7segment(num); //display in led7
  8000516:	4b20      	ldr	r3, [pc, #128]	; (8000598 <fsm_button_pressed+0xe4>)
  8000518:	681b      	ldr	r3, [r3, #0]
  800051a:	4618      	mov	r0, r3
  800051c:	f7ff fee8 	bl	80002f0 <display_7segment>
 			break;
  8000520:	e02e      	b.n	8000580 <fsm_button_pressed+0xcc>
-			if(ispressed(2) == 0){
+			if(ispressed(2) == 0){ //if not press button DEC
  8000522:	2002      	movs	r0, #2
  8000524:	f7ff fe12 	bl	800014c <ispressed>
  8000528:	4603      	mov	r3, r0
  800052a:	2b00      	cmp	r3, #0
  800052c:	d109      	bne.n	8000542 <fsm_button_pressed+0x8e>
-				button_flag[2] = 0;
+				button_flag[2] = 0; //set button DEC flag to 0
  800052e:	4b18      	ldr	r3, [pc, #96]	; (8000590 <fsm_button_pressed+0xdc>)
  8000530:	2200      	movs	r2, #0
  8000532:	609a      	str	r2, [r3, #8]
-				status = SETTIME;
+				status = SETTIME; //set status to SETTIME state
  8000534:	4b15      	ldr	r3, [pc, #84]	; (800058c <fsm_button_pressed+0xd8>)
  8000536:	2202      	movs	r2, #2
  8000538:	601a      	str	r2, [r3, #0]
-				setTimer3(10000);
+				setTimer3(10000); //set timer3 to 10s again because we just release button
  800053a:	f242 7010 	movw	r0, #10000	; 0x2710
  800053e:	f000 f98f 	bl	8000860 <setTimer3>
-			if(timer_flag2){
+			if(timer_flag2){ //if have timer2 flag
  8000542:	4b14      	ldr	r3, [pc, #80]	; (8000594 <fsm_button_pressed+0xe0>)
  8000544:	681b      	ldr	r3, [r3, #0]
  8000546:	2b00      	cmp	r3, #0
  8000548:	d01c      	beq.n	8000584 <fsm_button_pressed+0xd0>
-				setTimer2(1000);
+				setTimer2(1000); //set timer to 1s
  800054a:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  800054e:	f000 f96b 	bl	8000828 <setTimer2>
-				num = (num-1+10)%10;
+				num = (num-1+10)%10; //num decrease every 1s
  8000552:	4b11      	ldr	r3, [pc, #68]	; (8000598 <fsm_button_pressed+0xe4>)
  8000554:	681b      	ldr	r3, [r3, #0]
  8000556:	f103 0109 	add.w	r1, r3, #9
@@ -663,7 +663,7 @@ void fsm_button_pressed(){
  800056e:	1aca      	subs	r2, r1, r3
  8000570:	4b09      	ldr	r3, [pc, #36]	; (8000598 <fsm_button_pressed+0xe4>)
  8000572:	601a      	str	r2, [r3, #0]
-				display_7segment(num);
+				display_7segment(num); //display in led7
  8000574:	4b08      	ldr	r3, [pc, #32]	; (8000598 <fsm_button_pressed+0xe4>)
  8000576:	681b      	ldr	r3, [r3, #0]
  8000578:	4618      	mov	r0, r3
@@ -726,11 +726,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  status = INIT;
+  status = INIT; //set status to INIT STATE
  80005ba:	4b0d      	ldr	r3, [pc, #52]	; (80005f0 <main+0x50>)
  80005bc:	2200      	movs	r2, #0
  80005be:	601a      	str	r2, [r3, #0]
-  setTimer1(1000);
+  setTimer1(1000); // set timer1 for blinky red led
  80005c0:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  80005c4:	f000 f914 	bl	80007f0 <setTimer1>
   while (1)

@@ -98,8 +98,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  status = INIT; //set status to INIT STATE
-  setTimer1(1000); // set timer1 for blinky red led
+  status = INIT;
+  setTimer1(1000);
   while (1)
   {
 	  if(timer_flag1){

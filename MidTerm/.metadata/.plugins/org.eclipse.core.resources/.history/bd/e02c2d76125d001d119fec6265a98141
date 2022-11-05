@@ -1,0 +1,102 @@
+/*
+ * fsm_automatic.c
+ *
+ *  Created on: Nov 3, 2022
+ *      Author: ADMIN
+ */
+#include "main.h"
+#include "fsm_automatic.h"
+
+
+int num = 9;
+
+void fsm_automatic_run(){
+	switch(status){
+		case INIT:
+			setTimer2(1000); //set timer2 1s for counting down every 1s
+			display_7segment(num); //display in led 7
+			status = COUNTDOWN; //set status to COUNTDOWN STATE
+			break;
+		case COUNTDOWN:
+			if(timer_flag2 == 1){
+				setTimer2(1000); //set timer2 to 1s again
+				if(num > 0) num--; // value of led 7 counting down every 1s
+				display_7segment(num); //display in led 7
+			}
+			if((button_flag[0] == 1) || (button_flag[1] == 1) || (button_flag[2] == 1)){
+				status = SETTIME; //set status to SETTIME STATE if have button down
+				setTimer3(10000); //set timer3 to 10s for if not have button down in SETTIME STATE then status return to COUNTDOWN STATE
+			}
+			break;
+		case SETTIME:
+			if(timer_flag3 == 1){
+				status = INIT;
+			}
+			if(button_flag[0] == 1){
+				button_flag[0] = 0;
+				num = 0;
+				display_7segment(num);
+				setTimer3(10000);
+			}
+			if(button_flag[1] == 1){
+				button_flag[1] = 0;
+				num = (num+1)%10;
+				display_7segment(num);
+				setTimer3(10000);
+			}
+			if(button_flag[2] == 1){
+				button_flag[2] = 0;
+				num = (num-1+10)%10;
+				display_7segment(num);
+				setTimer3(10000);
+			}
+			if(ispressed(1)){
+				setTimer2(1000);
+				status = PRESSED_INC;
+			}
+			if(ispressed(2)){
+				setTimer2(1000);
+				status = PRESSED_DEC;
+			}
+			break;
+		default:
+			break;
+	}
+}
+
+void fsm_button_pressed(){
+	switch(status){
+		case PRESSED_INC:
+			if(ispressed(1) == 0){
+				button_flag[1] = 0;
+				status = SETTIME;
+				setTimer3(10000);
+			}
+			if(timer_flag2){
+				setTimer2(1000);
+				num = (num+1)%10;
+				display_7segment(num);
+			}
+			break;
+		case PRESSED_DEC:
+			if(ispressed(2) == 0){
+				button_flag[2] = 0;
+				status = SETTIME;
+				setTimer3(10000);
+			}
+			if(timer_flag2){
+				setTimer2(1000);
+				num = (num-1+10)%10;
+				display_7segment(num);
+			}
+			break;
+		default:
+			break;
+	}
+}
+
+
+
+
+
+

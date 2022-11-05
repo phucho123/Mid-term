@@ -42,7 +42,7 @@ void getKeyInput(){
 					button_flag[i] = 1;
 				}
 				else{
-					is_pressed[i] = 0; //release button
+					is_pressed[i] = 0;
 					button_flag[i] = 0;
 				}
 			}

@@ -16,6 +16,6 @@
 extern int button_flag[3];
 
 void getKeyInput();
-int ispressed(int index);
+int ispressed();
 
 #endif /* INC_BUTTON_H_ */

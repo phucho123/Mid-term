@@ -84,10 +84,10 @@ void fsm_button_pressed(){
 				status = SETTIME; //set status to SETTIME state
 				setTimer3(10000); //set timer3 to 10s again because we just release button
 			}
-			if(timer_flag2){ //if have timer2 flag
-				setTimer2(1000); //set timer to 1s
-				num = (num-1+10)%10; //num decrease every 1s
-				display_7segment(num); //display in led7
+			if(timer_flag2){
+				setTimer2(1000);
+				num = (num-1+10)%10;
+				display_7segment(num);
 			}
 			break;
 		default:

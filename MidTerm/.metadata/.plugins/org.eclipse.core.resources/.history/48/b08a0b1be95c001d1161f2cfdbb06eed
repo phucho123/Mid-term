@@ -24,11 +24,11 @@ void fsm_automatic_run(){
 				display_7segment(num);
 			}
 			if(button_flag[0] == 1 || button_flag[1] == 1 || button_flag[2] == 1){
-				status = SETTIME;
+				status = SETMODE;
 				setTimer3(10000);
 			}
 			break;
-		case SETTIME:
+		case SETMODE:
 			if(timer_flag3 == 1){
 				status = INIT;
 			}
@@ -69,7 +69,7 @@ void fsm_button_pressed(){
 		case PRESSINC:
 			if(ispressed(1) == 0){
 				button_flag[1] = 0;
-				status = SETTIME;
+				status = SETMODE;
 				setTimer3(10000);
 			}
 			if(timer_flag2){
@@ -81,7 +81,7 @@ void fsm_button_pressed(){
 		case PRESSDEC:
 			if(ispressed(2) == 0){
 				button_flag[2] = 0;
-				status = SETTIME;
+				status = SETMODE;
 				setTimer3(10000);
 			}
 			if(timer_flag2){

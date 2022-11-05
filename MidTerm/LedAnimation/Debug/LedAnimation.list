@@ -403,7 +403,7 @@ void fsm_automatic_run(){
  800038c:	689b      	ldr	r3, [r3, #8]
  800038e:	2b01      	cmp	r3, #1
  8000390:	d17f      	bne.n	8000492 <fsm_automatic_run+0x17a>
-				status = SETMODE;
+				status = SETTIME;
  8000392:	4b42      	ldr	r3, [pc, #264]	; (800049c <fsm_automatic_run+0x184>)
  8000394:	2202      	movs	r2, #2
  8000396:	601a      	str	r2, [r3, #0]
@@ -584,7 +584,7 @@ void fsm_button_pressed(){
  80004d2:	4b2f      	ldr	r3, [pc, #188]	; (8000590 <fsm_button_pressed+0xdc>)
  80004d4:	2200      	movs	r2, #0
  80004d6:	605a      	str	r2, [r3, #4]
-				status = SETMODE;
+				status = SETTIME;
  80004d8:	4b2c      	ldr	r3, [pc, #176]	; (800058c <fsm_button_pressed+0xd8>)
  80004da:	2202      	movs	r2, #2
  80004dc:	601a      	str	r2, [r3, #0]
@@ -632,7 +632,7 @@ void fsm_button_pressed(){
  800052e:	4b18      	ldr	r3, [pc, #96]	; (8000590 <fsm_button_pressed+0xdc>)
  8000530:	2200      	movs	r2, #0
  8000532:	609a      	str	r2, [r3, #8]
-				status = SETMODE;
+				status = SETTIME;
  8000534:	4b15      	ldr	r3, [pc, #84]	; (800058c <fsm_button_pressed+0xd8>)
  8000536:	2202      	movs	r2, #2
  8000538:	601a      	str	r2, [r3, #0]

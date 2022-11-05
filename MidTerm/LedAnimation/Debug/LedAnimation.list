@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   0000a911  00000000  00000000  00041f67  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081d83  00000000  00000000  0004c878  2**0
+ 18 .debug_str    00081d89  00000000  00000000  0004c878  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000ce5fb  2**0
+ 19 .comment      00000053  00000000  00000000  000ce601  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002750  00000000  00000000  000ce650  2**2
+ 20 .debug_frame  00002750  00000000  00000000  000ce654  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -347,7 +347,7 @@ void fsm_automatic_run(){
  800032e:	2b01      	cmp	r3, #1
  8000330:	d00d      	beq.n	800034e <fsm_automatic_run+0x36>
 				setTimer2(1000);
-				status = PRESSDEC;
+				status = PRESSED_DEC;
 			}
 			break;
 		default:
@@ -517,7 +517,7 @@ void fsm_automatic_run(){
 				setTimer2(1000);
  8000464:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000468:	f000 f9de 	bl	8000828 <setTimer2>
-				status = PRESSINC;
+				status = PRESSED_INC;
  800046c:	4b0b      	ldr	r3, [pc, #44]	; (800049c <fsm_automatic_run+0x184>)
  800046e:	2203      	movs	r2, #3
  8000470:	601a      	str	r2, [r3, #0]
@@ -530,7 +530,7 @@ void fsm_automatic_run(){
 				setTimer2(1000);
  800047e:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000482:	f000 f9d1 	bl	8000828 <setTimer2>
-				status = PRESSDEC;
+				status = PRESSED_DEC;
  8000486:	4b05      	ldr	r3, [pc, #20]	; (800049c <fsm_automatic_run+0x184>)
  8000488:	2204      	movs	r2, #4
  800048a:	601a      	str	r2, [r3, #0]

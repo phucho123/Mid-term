@@ -52,11 +52,11 @@ void fsm_automatic_run(){
 			}
 			if(ispressed(1)){
 				setTimer2(1000);
-				status = PRESSINC;
+				status = PRESSED_INC;
 			}
 			if(ispressed(2)){
 				setTimer2(1000);
-				status = PRESSDEC;
+				status = PRESSED_DEC;
 			}
 			break;
 		default:
@@ -66,7 +66,7 @@ void fsm_automatic_run(){
 
 void fsm_button_pressed(){
 	switch(status){
-		case PRESSINC:
+		case PRESSED_INC:
 			if(ispressed(1) == 0){
 				button_flag[1] = 0;
 				status = SETTIME;
@@ -78,7 +78,7 @@ void fsm_button_pressed(){
 				display_7segment(num);
 			}
 			break;
-		case PRESSDEC:
+		case PRESSED_DEC:
 			if(ispressed(2) == 0){
 				button_flag[2] = 0;
 				status = SETTIME;

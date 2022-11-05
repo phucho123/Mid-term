@@ -35,6 +35,10 @@ void fsm_automatic_run(){
 			if(timer_flag3 == 1){
 				status = INIT;
 			}
+			if(timer_flag1 == 1){
+				setTimer1(1000);
+				HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
+			}
 			if(button_flag[1] == 1){
 				button_flag[1] = 0;
 				num = (num+1)%10;

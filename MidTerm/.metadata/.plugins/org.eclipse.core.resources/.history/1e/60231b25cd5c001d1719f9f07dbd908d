@@ -108,6 +108,17 @@ int main(void)
 	  }
 	  fsm_automatic_run();
 	  fsm_button_pressed();
+//	  if(timer_flag2){
+//		  setTimer2(500);
+//		  en = 1-en;
+//		  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,en);
+//		  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,1-en);
+//	  }
+//	  if(timer_flag1){
+//		  setTimer1(1000);
+//		  n = (n-1+10)%10;
+//		  display_7segment(n);
+//	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

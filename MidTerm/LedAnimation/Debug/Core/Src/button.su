@@ -1,2 +1,2 @@
-button.c:19:5:ispressed	16	static
-button.c:22:6:getKeyInput	16	static
+button.c:20:5:ispressed	16	static
+button.c:24:6:getKeyInput	16	static

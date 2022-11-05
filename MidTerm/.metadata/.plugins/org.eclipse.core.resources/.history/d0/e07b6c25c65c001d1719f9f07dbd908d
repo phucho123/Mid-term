@@ -18,8 +18,8 @@ void fsm_automatic_run(){
 			status = COUNTDOWN;
 			break;
 		case COUNTDOWN:
-			if(timer_flag2 == 1){
-				setTimer2(1000);
+			if(timer_flag1 == 1){
+				setTimer1(1000);
 				if(num > 0) num--;
 				display_7segment(num);
 			}
@@ -34,6 +34,10 @@ void fsm_automatic_run(){
 		case RESETMODE:
 			if(timer_flag3 == 1){
 				status = INIT;
+			}
+			if(timer_flag1 == 1){
+				setTimer1(1000);
+				HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
 			}
 			if(button_flag[1] == 1){
 				button_flag[1] = 0;

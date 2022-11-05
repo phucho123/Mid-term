@@ -99,15 +99,22 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   status = INIT;
-  setTimer1(1000);
+
   while (1)
   {
-	  if(timer_flag1){
-		  setTimer1(1000);
-		  HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
-	  }
 	  fsm_automatic_run();
 	  fsm_button_pressed();
+//	  if(timer_flag2){
+//		  setTimer2(500);
+//		  en = 1-en;
+//		  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,en);
+//		  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,1-en);
+//	  }
+//	  if(timer_flag1){
+//		  setTimer1(1000);
+//		  n = (n-1+10)%10;
+//		  display_7segment(n);
+//	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

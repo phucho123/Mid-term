@@ -1,2 +1,2 @@
 fsm_automatic.c:13:6:fsm_automatic_run	8	static
-fsm_automatic.c:69:6:fsm_button_pressed	8	static
+fsm_automatic.c:64:6:fsm_button_pressed	8	static

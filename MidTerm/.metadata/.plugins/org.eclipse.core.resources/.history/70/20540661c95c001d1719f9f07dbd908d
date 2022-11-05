@@ -38,13 +38,11 @@ void fsm_automatic_run(){
 			if(button_flag[1] == 1){
 				button_flag[1] = 0;
 				num = (num+1)%10;
-				display_7segment(num);
 				setTimer3(5000);
 			}
 			if(button_flag[2] == 1){
 				button_flag[2] = 0;
 				num = (num-1+10)%10;
-				display_7segment(num);
 				setTimer3(5000);
 			}
 			if(ispressed(1)){
@@ -55,6 +53,7 @@ void fsm_automatic_run(){
 				setTimer2(1000);
 				status = PRESSDEC;
 			}
+			display_7segment(num);
 			break;
 		default:
 			break;

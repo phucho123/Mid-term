@@ -47,9 +47,7 @@ void getKeyInput(){
 				}
 			}
 			else{
-				if(Timeout[i] > 0){
-					Timeout[i]--;
-				}
+				if(Timeout[i] > 0) Timeout[i]--;
 				if(KeyReg3[i] == PRESSED_STATE && Timeout[i] == 0){
 					KeyReg3[i] = NORMAL_STATE;
 					is_pressed[i] = 1;

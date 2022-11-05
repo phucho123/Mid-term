@@ -8,11 +8,12 @@
 #ifndef INC_GLOBAL_H_
 #define INC_GLOBAL_H_
 
-#define INIT		0
-#define COUNTDOWN	1
-#define RESETMODE	2
-#define PRESSINC	3
-#define PRESSDEC	4
+#define INIT		0 // INITIAL STATE
+#define COUNTDOWN	1 //COUNT DOWN STATE
+#define SETMODE	2 //SET VALUE STATE
+#define PRESSINC	3 //PRESS INC BUTTON STATE
+#define PRESSDEC	4 //PRESS DEC BUTTON STATE
+
 
 extern int status;
 

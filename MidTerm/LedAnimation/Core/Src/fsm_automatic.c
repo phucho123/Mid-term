@@ -23,29 +23,32 @@ void fsm_automatic_run(){
 				if(num > 0) num--;
 				display_7segment(num);
 			}
-			if(button_flag[0] == 1){
-				button_flag[0] = 0;
-				status = RESETMODE;
-				num = 0;
-				display_7segment(num);
-				setTimer3(5000);
+			if(button_flag[0] == 1 || button_flag[1] == 1 || button_flag[2] == 1){
+				status = SETMODE;
+				setTimer3(10000);
 			}
 			break;
-		case RESETMODE:
+		case SETMODE:
 			if(timer_flag3 == 1){
 				status = INIT;
+			}
+			if(button_flag[0] == 1){
+				button_flag[0] = 0;
+				num = 0;
+				display_7segment(num);
+				setTimer3(10000);
 			}
 			if(button_flag[1] == 1){
 				button_flag[1] = 0;
 				num = (num+1)%10;
 				display_7segment(num);
-				setTimer3(5000);
+				setTimer3(10000);
 			}
 			if(button_flag[2] == 1){
 				button_flag[2] = 0;
 				num = (num-1+10)%10;
 				display_7segment(num);
-				setTimer3(5000);
+				setTimer3(10000);
 			}
 			if(ispressed(1)){
 				setTimer2(1000);
@@ -66,8 +69,8 @@ void fsm_button_pressed(){
 		case PRESSINC:
 			if(ispressed(1) == 0){
 				button_flag[1] = 0;
-				status = RESETMODE;
-				setTimer3(5000);
+				status = SETMODE;
+				setTimer3(10000);
 			}
 			if(timer_flag2){
 				setTimer2(1000);
@@ -78,8 +81,8 @@ void fsm_button_pressed(){
 		case PRESSDEC:
 			if(ispressed(2) == 0){
 				button_flag[2] = 0;
-				status = RESETMODE;
-				setTimer3(5000);
+				status = SETMODE;
+				setTimer3(10000);
 			}
 			if(timer_flag2){
 				setTimer2(1000);
@@ -91,6 +94,7 @@ void fsm_button_pressed(){
 			break;
 	}
 }
+
 
 
 
